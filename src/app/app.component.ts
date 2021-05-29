@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { saveAs } from 'file-saver';
 import { Observable, of } from "rxjs";
 
 @Component({
@@ -7,19 +6,20 @@ import { Observable, of } from "rxjs";
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent implements OnInit {
+
+// https://stackblitz.com/edit/httpsstackoverflowcomquestions51806464how-to-create-and-downloa?file=src%2Fapp%2Fapp.component.ts
+export class AppComponent { 
+  baseLocation = `src\\assets\\files\\`;
+
   dataObject = {
     eno: 1,
     ename: 'rajak',
     dept: 'dept1',
     sal: '1000',
     location: 'pune'
-  }
+  };
+
   fileName = '';
-
-  ngOnInit() {
-
-  }
 
   dynamicDownloadLog() {
     if (this.dataObject.ename === 'rajak') {
@@ -77,9 +77,10 @@ export class AppComponent implements OnInit {
     }
     const element = this.setting.element.dynamicDownload;
     // https://www.sitepoint.com/mime-types-complete-list/
-    const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
-    // const fileType = 'text/x-log';
+    //const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+     const fileType = 'text/x-log';
     element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
+    //element.setAttribute('href', `${this.baseLocation}//data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
     element.setAttribute('download', arg.fileName);
 
     var event = new MouseEvent("click");
@@ -87,7 +88,6 @@ export class AppComponent implements OnInit {
   }
 
   // reference : https://stackoverflow.com/a/51806624/7291379
-  // author : UnluckyAj
   //  private dyanmicDownloadByBlob(arg: {
   //   fileName: string,
   //   text: string
