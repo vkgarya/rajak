@@ -28,7 +28,7 @@ export class AppComponent implements OnInit {
     else {
       this.fileName = 'temp-template.log';
     }
-    
+
     this.fakeValidateUserData().subscribe((res) => {
       this.dyanmicDownloadByHtmlTag({
         fileName: this.fileName,
@@ -76,8 +76,9 @@ export class AppComponent implements OnInit {
       this.setting.element.dynamicDownload = document.createElement('a');
     }
     const element = this.setting.element.dynamicDownload;
-    // const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
-    const fileType = 'text/x-log';
+    // https://www.sitepoint.com/mime-types-complete-list/
+    const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+    // const fileType = 'text/x-log';
     element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
     element.setAttribute('download', arg.fileName);
 
