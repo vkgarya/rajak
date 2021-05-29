@@ -18,16 +18,44 @@ export class AppComponent implements OnInit {
   fileName = '';
 
   ngOnInit() {
+
+  }
+
+  dynamicDownloadLog() {
     if (this.dataObject.ename === 'rajak') {
       this.fileName = 'test-template.log';
     }
     else {
       this.fileName = 'temp-template.log';
     }
+    
+    this.fakeValidateUserData().subscribe((res) => {
+      this.dyanmicDownloadByHtmlTag({
+        fileName: this.fileName,
+        text: JSON.stringify(res)
+      });
+    });
   }
 
-  createFile() {
-    saveAs(this.dataObject, this.fileName);
+  dynamicDownloadTxt() {
+    this.fileName = 'test-template.txt';
+    this.fakeValidateUserData().subscribe((res) => {
+      this.dyanmicDownloadByHtmlTag({
+        fileName: this.fileName,
+        text: JSON.stringify(res)
+      });
+    });
+
+  }
+
+  dynamicDownloadJson() {
+    this.fileName = 'test-template.json';
+    this.fakeValidateUserData().subscribe((res) => {
+      this.dyanmicDownloadByHtmlTag({
+        fileName: this.fileName,
+        text: JSON.stringify(res)
+      });
+    });
   }
 
   fakeValidateUserData() {
@@ -40,25 +68,6 @@ export class AppComponent implements OnInit {
     }
   }
 
-  dynamicDownloadTxt() {
-    this.fakeValidateUserData().subscribe((res) => {
-      this.dyanmicDownloadByHtmlTag({
-        fileName: this.fileName,
-        text: JSON.stringify(res)
-      });
-    });
-
-  }
-
-  dynamicDownloadJson() {
-    this.fakeValidateUserData().subscribe((res) => {
-      this.dyanmicDownloadByHtmlTag({
-        fileName: this.fileName,
-        text: JSON.stringify(res)
-      });
-    });
-  }
-
   private dyanmicDownloadByHtmlTag(arg: {
     fileName: string,
     text: string
@@ -67,7 +76,8 @@ export class AppComponent implements OnInit {
       this.setting.element.dynamicDownload = document.createElement('a');
     }
     const element = this.setting.element.dynamicDownload;
-    const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+    // const fileType = arg.fileName.indexOf('.json') > -1 ? 'text/json' : 'text/plain';
+    const fileType = 'text/x-log';
     element.setAttribute('href', `data:${fileType};charset=utf-8,${encodeURIComponent(arg.text)}`);
     element.setAttribute('download', arg.fileName);
 
