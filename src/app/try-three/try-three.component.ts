@@ -7,7 +7,7 @@ import * as saveAs from 'file-saver';
   styleUrls: ['./try-three.component.css']
 })
 export class TryThreeComponent implements OnInit {
-
+// https://stackoverflow.com/questions/54562812/how-to-read-and-write-from-angular-app-to-local-file/54568859
   dataObject = {
     eno: 1,
     ename: 'rajak',
@@ -17,6 +17,7 @@ export class TryThreeComponent implements OnInit {
   };
 
   fileName = '';
+  // baseLocation = `src\\assets\\files\\`;
 
   constructor() { }
 
